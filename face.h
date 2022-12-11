@@ -13,7 +13,6 @@ enum FACE_ID { NORTH, SOUTH, TOP, BOTTOM, EAST, WEST };
 typedef struct Face
 {
     struct Cube *      parentCube;     // link to CUBE to which this FACE belongs
-    struct Letter *      nextLetter;     // link to next LETTER in WORD
 }   FACE;
 
 extern FACE * CreateFace(struct Cube *cubePtr);

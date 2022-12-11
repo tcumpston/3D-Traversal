@@ -24,16 +24,11 @@ WORD *CreateWord()
     }
     else
     {
-        wordPtr->length = 1;
         wordPtr->letter = CreateLetter();
 
         if (wordPtr->letter == NULL)
         {
             ExitMessage("Calloc() failed in word.c (2).");
-        }
-        else
-        {
-            wordPtr->length = 0;
         }
 
         return wordPtr;

@@ -10,9 +10,8 @@
 
 typedef struct Word
 {
-    int     length;
     LETTER *letter;     // linked list of LETTERs
-} WORD;
+}   WORD;
 
 extern WORD *wordList;     // linked list of WORDs
 

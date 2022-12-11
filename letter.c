@@ -27,8 +27,12 @@ LETTER *CreateLetter()
     {
         letterPtr->state = INITIAL;
         letterPtr->character = '?';
-        letterPtr->nextLetter = NULL;
-        letterPtr->previousLetter = NULL;
+        letterPtr->topLetter = NULL;
+        letterPtr->bottomLetter = NULL;
+        letterPtr->northLetter = NULL;
+        letterPtr->southLetter = NULL;
+        letterPtr->eastLetter = NULL;
+        letterPtr->westLetter = NULL;
         letterPtr->cubePtr = CreateCube();  // the cube associated with this letter
 
         if (letterPtr->cubePtr == NULL)
@@ -40,46 +44,76 @@ LETTER *CreateLetter()
     }
 }
 
-FACE *SelectFace(CUBE *cubePtr, int face)
+LETTER *NextLetter(LETTER *letterPtr, int face)
 {
     switch (face)
     {
         case NORTH:
-            return cubePtr->north;
+            return letterPtr->northLetter;
             break;
 
         case SOUTH:
-            return cubePtr->south;
+            return letterPtr->southLetter;
             break;
 
         case TOP:
-            return cubePtr->top;
+            return letterPtr->topLetter;
             break;
 
         case BOTTOM:
-            return cubePtr->bottom;
+            return letterPtr->bottomLetter;
             break;
 
         case EAST:
-            return cubePtr->east;
+            return letterPtr->eastLetter;
             break;
 
         case WEST:
-            return cubePtr->west;
+            return letterPtr->westLetter;
             break;
     }
 }
 
-int CountLetters(LETTER *letterPtr)
+int CountNorthSouthLetters(LETTER *letterPtr)
 {
     int letterCount = 0;
 
-    while (letterPtr->previousLetter != NULL) letterPtr = letterPtr->previousLetter;
+    while (letterPtr->northLetter != NULL) letterPtr = letterPtr->northLetter;
 
     while (letterPtr->state != INITIAL)
     {
         letterCount++;
-        letterPtr = letterPtr->nextLetter;
+        letterPtr = letterPtr->southLetter;
+    }
+
+    return letterCount;
+}
+
+int CountEastWestLetters(LETTER *letterPtr)
+{
+    int letterCount = 0;
+
+    while (letterPtr->westLetter != NULL) letterPtr = letterPtr->westLetter;
+
+    while (letterPtr->state != INITIAL)
+    {
+        letterCount++;
+        letterPtr = letterPtr->eastLetter;
+    }
+
+    return letterCount;
+}
+
+int CountTopDownLetters(LETTER *letterPtr)
+{
+    int letterCount = 0;
+
+    while (letterPtr->topLetter != NULL) letterPtr = letterPtr->topLetter;
+
+    while (letterPtr->state != INITIAL)
+    {
+        letterCount++;
+        letterPtr = letterPtr->bottomLetter;
     }
 
     return letterCount;
