@@ -21,7 +21,6 @@ FACE *CreateFace(CUBE *cubePtr)
     }
     else
     {
-        facePtr->state = INITIAL;
         facePtr->parentCube = cubePtr;  // link to CUBE to which this FACE belongs
         facePtr->nextLetter = 0;        // link to next LETTER in WORD
         return facePtr;

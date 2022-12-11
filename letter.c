@@ -25,6 +25,7 @@ LETTER *CreateLetter()
     }
     else
     {
+        letterPtr->state = INITIAL;
         letterPtr->character = '?';
         letterPtr->nextLetter = NULL;
         letterPtr->previousLetter = NULL;
@@ -41,7 +42,7 @@ LETTER *CreateLetter()
 
 FACE *SelectFace(CUBE *cubePtr, int face)
 {
-    switch(face)
+    switch (face)
     {
         case NORTH:
             return cubePtr->north;
@@ -67,16 +68,19 @@ FACE *SelectFace(CUBE *cubePtr, int face)
             return cubePtr->west;
             break;
     }
+}
 
-    int CountLetters(CUBE *cubePtr, int face, int letterCount)
+int CountLetters(LETTER *letterPtr)
+{
+    int letterCount = 0;
+
+    while (letterPtr->previousLetter != NULL) letterPtr = letterPtr->previousLetter;
+
+    while (letterPtr->state != INITIAL)
     {
-        FACE *facePtr;
-
-        if (SelectFace(cubePtr, face)->state != INITIAL)
-        {
-            CountLetters(SelectFace(facePtr->nextLetter->cubePtr, face)->parentCube, face, ++letterCount);
-        }
-
-        return letterCount;
+        letterCount++;
+        letterPtr = letterPtr->nextLetter;
     }
+
+    return letterCount;
 }

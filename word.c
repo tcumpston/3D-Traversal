@@ -24,6 +24,7 @@ WORD *CreateWord()
     }
     else
     {
+        wordPtr->length = 1;
         wordPtr->letter = CreateLetter();
 
         if (wordPtr->letter == NULL)
