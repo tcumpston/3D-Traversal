@@ -6,6 +6,7 @@
 #define INC_3D_TRAVERSAL_FACE_H
 
 enum FACE_STATE { INITIAL };
+enum FACE_ID { NORTH, SOUTH, TOP, BOTTOM, EAST, WEST };
 
 #include "cube.h"
 #include "letter.h"

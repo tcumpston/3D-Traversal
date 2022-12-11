@@ -6,6 +6,7 @@
 #define INC_3D_TRAVERSAL_LETTER_H
 
 #include "cube.h"
+#include "face.h"
 
 typedef struct Letter
 {
@@ -16,5 +17,6 @@ typedef struct Letter
 }   LETTER;
 
 extern LETTER *CreateLetter();
+int CountLetters(struct Cube *cubePtr, int face, int letterCount);
 
 #endif //INC_3D_TRAVERSAL_LETTER_H

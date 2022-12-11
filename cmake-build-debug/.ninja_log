@@ -6,3 +6,9 @@
 9	56	6924204873121822	CMakeFiles/3D_Traversal.dir/letter.c.obj	efbf7b4a748363ef
 7	56	6924204873136860	CMakeFiles/3D_Traversal.dir/word.c.obj	e4d46c166f4294c4
 57	201	6924204874618721	3D_Traversal.exe	131360d5e9eda0cd
+11	106	6924516608503845	CMakeFiles/3D_Traversal.dir/word.c.obj	e4d46c166f4294c4
+7	107	6924516608503845	CMakeFiles/3D_Traversal.dir/cube.c.obj	bd97479b2242b1ba
+1	107	6924516608503845	CMakeFiles/3D_Traversal.dir/main.c.obj	14377c7089e3f21c
+9	107	6924516608503845	CMakeFiles/3D_Traversal.dir/letter.c.obj	efbf7b4a748363ef
+5	108	6924516608513817	CMakeFiles/3D_Traversal.dir/face.c.obj	d9416f3dcdcf5d3e
+108	250	6924516609918521	3D_Traversal.exe	131360d5e9eda0cd

@@ -20,7 +20,7 @@ WORD *CreateWord()
 
     if (wordPtr == NULL)
     {
-        ExitMessage("Calloc() failed.");
+        ExitMessage("Calloc() failed in word.c (1).");
     }
     else
     {
@@ -28,7 +28,7 @@ WORD *CreateWord()
 
         if (wordPtr->letter == NULL)
         {
-            ExitMessage("Calloc() failed.");
+            ExitMessage("Calloc() failed in word.c (2).");
         }
         else
         {
