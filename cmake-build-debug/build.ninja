@@ -85,6 +85,12 @@ build CMakeFiles/3D_Traversal.dir/exit.c.obj: C_COMPILER__3D_Traversal_Debug C$:
   OBJECT_DIR = CMakeFiles\3D_Traversal.dir
   OBJECT_FILE_DIR = CMakeFiles\3D_Traversal.dir
 
+build CMakeFiles/3D_Traversal.dir/tools.c.obj: C_COMPILER__3D_Traversal_Debug C$:/Users/tanya/CLionProjects/3D$ Traversal/tools.c || cmake_object_order_depends_target_3D_Traversal
+  DEP_FILE = CMakeFiles\3D_Traversal.dir\tools.c.obj.d
+  FLAGS = -g -fdiagnostics-color=always -std=gnu11
+  OBJECT_DIR = CMakeFiles\3D_Traversal.dir
+  OBJECT_FILE_DIR = CMakeFiles\3D_Traversal.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target 3D_Traversal
@@ -93,7 +99,7 @@ build CMakeFiles/3D_Traversal.dir/exit.c.obj: C_COMPILER__3D_Traversal_Debug C$:
 #############################################
 # Link the executable 3D_Traversal.exe
 
-build 3D_Traversal.exe: C_EXECUTABLE_LINKER__3D_Traversal_Debug CMakeFiles/3D_Traversal.dir/main.c.obj CMakeFiles/3D_Traversal.dir/face.c.obj CMakeFiles/3D_Traversal.dir/cube.c.obj CMakeFiles/3D_Traversal.dir/letter.c.obj CMakeFiles/3D_Traversal.dir/word.c.obj CMakeFiles/3D_Traversal.dir/exit.c.obj
+build 3D_Traversal.exe: C_EXECUTABLE_LINKER__3D_Traversal_Debug CMakeFiles/3D_Traversal.dir/main.c.obj CMakeFiles/3D_Traversal.dir/face.c.obj CMakeFiles/3D_Traversal.dir/cube.c.obj CMakeFiles/3D_Traversal.dir/letter.c.obj CMakeFiles/3D_Traversal.dir/word.c.obj CMakeFiles/3D_Traversal.dir/exit.c.obj CMakeFiles/3D_Traversal.dir/tools.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\3D_Traversal.dir

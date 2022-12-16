@@ -56,20 +56,20 @@ LETTER *NextLetter(LETTER *letterPtr, int face)
             return letterPtr->southLetter;
             break;
 
-        case TOP:
-            return letterPtr->topLetter;
-            break;
-
-        case BOTTOM:
-            return letterPtr->bottomLetter;
-            break;
-
         case EAST:
             return letterPtr->eastLetter;
             break;
 
         case WEST:
             return letterPtr->westLetter;
+            break;
+
+        case TOP:
+            return letterPtr->topLetter;
+            break;
+
+        case BOTTOM:
+            return letterPtr->bottomLetter;
             break;
     }
 }

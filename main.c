@@ -8,11 +8,15 @@
 #include "exit.h"
 #include "face.h"
 #include "word.h"
+#include "tools.h"
 
 // FUNCTIONS
 
 void Startup()
 {
+
+    fprintf(stderr, "sizeof(unsigned long long) == %d.", sizeof(unsigned long long));
+    TestHashFunction();
     wordList = CreateWord();            // Create the first word
 }
 
