@@ -7,6 +7,7 @@
 
 #define HAST_TABLE_LENGTH 4096
 
+extern void CreateLibrary();
 extern void TestHashFunction();
 
 #endif //INC_3D_TRAVERSAL_TOOLS_H

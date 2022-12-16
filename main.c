@@ -15,8 +15,7 @@
 void Startup()
 {
 
-    fprintf(stderr, "sizeof(unsigned long long) == %d.", sizeof(unsigned long long));
-    TestHashFunction();
+    CreateLibrary();
     wordList = CreateWord();            // Create the first word
 }
 

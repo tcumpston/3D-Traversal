@@ -11,16 +11,6 @@
 
 FILE *wordFilePtr = NULL;
 
-void CreateLibrary()
-{
-    FILE *wordFilePtr = fopen("Public Domain Word List.txt", "r");
-
-    if (wordFilePtr == NULL) ExitMessage("fopen() failed in tools.c.");
-
-    
-}
-
-
 unsigned int Hash(const char *str)
 {
     unsigned long long hash = 0;
@@ -38,6 +28,66 @@ unsigned int Hash(const char *str)
     return (unsigned int) hash;
 }
 
+void CreateLibrary()
+{
+    FILE *fp = fopen("../Public Domain Word List.txt", "r");
+
+    if (fp != NULL)
+    {
+        char * buffer = NULL;
+        char word[256];
+        int length;
+        int offset = 0;
+
+        // Determine file length.
+        fseek(fp, 0L, SEEK_END);                                   // int fseek(FILE *stream, long int offset, int whence);
+        length = ftell(fp);                                                    // 85880
+        rewind(fp);
+
+        // Allocate suitable buffer to hole file contents.
+        buffer = malloc(length + 1);
+
+        if (buffer == NULL)
+        {
+            ExitMessage("fopen() failed in tools.c[CreateLibrary()].");
+        }
+
+        // Cope file contents into buffer.
+        fread(buffer, 1, length, fp);                   // size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+
+        int fieldsAssigned = 1;
+        int wordCount = 0;
+
+        // while (offset < length)
+        while (1)
+        {
+            fieldsAssigned = sscanf_s(buffer + offset, "%s", word, sizeof(word) -1);    // int sscanf_s(const char *restrict s, const char *restrict format, ...);
+
+            if (fieldsAssigned > 0)
+            {
+                wordCount++;
+                offset += strlen(word) + 1;
+
+                int hash = Hash(word);
+
+                // Restrict for testing
+                hash = (hash >> 8) ^ (hash & 0xff);
+                hash = (hash >> 4) ^ (hash & 0xf);
+                hash &= 0xf;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        fprintf(stderr, "%d words in file.\n", wordCount);
+    }
+    else
+    {
+        ExitMessage("fopen() failed in tools.c[CreateLibrary()].");
+    }
+}
 
 void TestHashFunction()
 {
