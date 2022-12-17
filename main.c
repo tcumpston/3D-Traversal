@@ -16,6 +16,7 @@ void Startup()
 {
 
     CreateLibrary();
+    TestLibrary();
     wordList = CreateWord();            // Create the first word
 }
 

@@ -7,4 +7,7 @@
 
 #endif //INC_3D_TRAVERSAL_EXIT_H
 
+#define DEBUG_ENABLED 1
+
+
 void ExitMessage(char *message);

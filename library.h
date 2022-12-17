@@ -17,6 +17,7 @@ extern HASH_TABLE_ENTRY * hashTable[HAST_TABLE_LENGTH];
 
 extern void CreateLibrary();
 extern void TestHashFunction();
+extern void TestLibrary();
 extern HASH_TABLE_ENTRY *CreateListEntry();
 extern unsigned int Hash(const char *str);
 extern HASH_TABLE_ENTRY *FindHashTableEntry(char *word);

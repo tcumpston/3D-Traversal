@@ -20,7 +20,7 @@ HASH_TABLE_ENTRY *CreateHashTableEntry()
 
     if (hashTableEntry == NULL)
     {
-        ExitMessage("calloc() failed in tools.c[CreateHashTableEntry()].");
+        ExitMessage("calloc() failed in library.c[CreateHashTableEntry()].");
     }
     else
     {
@@ -114,11 +114,12 @@ void CreateLibrary()
 
                 if (wordEntry == NULL)
                 {
-                    ExitMessage("malloc() failed in tools.c[CreateLibrary()].");
+                    ExitMessage("malloc() failed in library.c[CreateLibrary()].");
                 }
                 else
                 {
                     strncpy(wordEntry, word, wordLength);
+                    wordEntry[wordLength] = 0;
                     CreateListEntry(Hash(wordEntry))->word = wordEntry;
                     wordCount++;
                     offset += wordLength + 1;
@@ -130,6 +131,93 @@ void CreateLibrary()
             }
         }
 
+        fprintf(stderr, "%d words in file.\n", wordCount);
+    }
+    else
+    {
+        ExitMessage("fopen() failed in library.c[CreateLibrary()].");
+    }
+}
+
+HASH_TABLE_ENTRY *FindHashTableEntry(char *word)
+{
+    int hash = Hash(word);
+    HASH_TABLE_ENTRY *hashTableEntry = hashTable[hash];
+
+    while (hashTableEntry != NULL)
+    {
+        if (!strcmp(word, hashTableEntry->word))
+        {
+            if (DEBUG_ENABLED) fprintf(stderr, "Found %s == %s in library (hash==%x).\n", word, hashTableEntry->word, hash);
+            return hashTableEntry;
+        }
+        else
+        {
+            if (DEBUG_ENABLED) fprintf(stderr, "Skipping %s != %s in library (hash==%x).\n", word, hashTableEntry->word, hash);
+            hashTableEntry = hashTableEntry->next;
+        }
+    }
+
+    return NULL;
+}
+
+void TestLibrary()
+{
+    FILE *fp = fopen("../Public Domain Word List.txt", "r");
+
+    if (fp != NULL)
+    {
+        char * buffer = NULL;
+        char word[256];
+        int length;
+        int offset = 0;
+
+        // Determine file length.
+        fseek(fp, 0L, SEEK_END);                                   // int fseek(FILE *stream, long int offset, int whence);
+        length = ftell(fp);                                                    // 85880
+        rewind(fp);
+
+        // Allocate suitable buffer to hold file contents.
+        buffer = malloc(length + 1);
+
+        if (buffer == NULL)
+        {
+            ExitMessage("fopen() failed in library.c[CreateLibrary()].");
+        }
+
+        // Cope file contents into buffer.
+        fread(buffer, 1, length, fp);                   // size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream);
+
+        int fieldsAssigned = 1;
+        int wordCount = 0;
+
+        // while (offset < length)
+        while (1)
+        {
+            int wordLength = 0;
+            char * wordEntry = NULL;
+            fieldsAssigned = sscanf_s(buffer + offset, "%s", word, sizeof(word) -1);    // int sscanf_s(const char *restrict s, const char *restrict format, ...);
+
+            if (fieldsAssigned > 0)
+            {
+                wordLength = strlen(word);
+                wordCount++;
+                offset += wordLength + 1;
+                HASH_TABLE_ENTRY *HashTableEntryPtr = FindHashTableEntry(word);
+
+                if (HashTableEntryPtr == NULL)
+                {
+                    fprintf(stderr, "Processed %d words. Could not find %s in library.\n", wordCount, word);
+                    ExitMessage("FindHashTableEntry() failed in library.c[TestLibrary()].");
+                }
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        free (buffer);
         fprintf(stderr, "%d words in file.\n", wordCount);
     }
     else
@@ -194,19 +282,4 @@ void TestHashFunction()
     {
         ExitMessage("fopen() failed in tools.c[TestHashFunction()].");
     }
-}
-
-HASH_TABLE_ENTRY *FindHashTableEntry(char *word)
-{
-    HASH_TABLE_ENTRY *hashTableEntry = hashTable[Hash(word)];
-
-    while (hashTableEntry != NULL)
-    {
-        if (!strcmp(word, hashTableEntry->word))
-            return hashTableEntry;
-        else
-            hashTableEntry = hashTableEntry->next;
-    }
-
-    return NULL;
 }

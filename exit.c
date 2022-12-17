@@ -5,8 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "exit.h"
+
 void ExitMessage(char *messagePtr)
 {
-    fprintf(stderr, messagePtr);
+    if (DEBUG_ENABLED) fprintf(stderr, messagePtr);
     exit(1);
 }
