@@ -8,7 +8,7 @@
 #include "exit.h"
 #include "face.h"
 #include "word.h"
-#include "tools.h"
+#include "library.h"
 
 // FUNCTIONS
 
