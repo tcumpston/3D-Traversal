@@ -5,7 +5,7 @@
 #ifndef INC_3D_TRAVERSAL_LIBRARY_H
 #define INC_3D_TRAVERSAL_LIBRARY_H
 
-#define HAST_TABLE_LENGTH 0x1000
+#define HAST_TABLE_LENGTH 20000
 
 typedef struct HashTableEntry
 {

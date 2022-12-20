@@ -57,12 +57,11 @@ unsigned int Hash(const char *str)
 
     while (isalpha(c = (toupper(*str++))))
     {
-        hash = (hash << 5) + (c - 'A' + 1);
+        c = c - 'A' + 1;
+        hash = (hash << 5) + c;
     }
 
-    hash = (hash >> 32) ^ (hash & 0xffffffff);
-    hash = (hash >> 16) ^ (hash & 0xffff);
-    hash &= 0xfff;
+    hash %= HAST_TABLE_LENGTH;
 
     return (unsigned int) hash;
 }
@@ -142,18 +141,19 @@ void CreateLibrary()
 HASH_TABLE_ENTRY *FindHashTableEntry(char *word)
 {
     int hash = Hash(word);
+    int skipCount = 0;
     HASH_TABLE_ENTRY *hashTableEntry = hashTable[hash];
 
     while (hashTableEntry != NULL)
     {
         if (!strcmp(word, hashTableEntry->word))
         {
-            if (DEBUG_ENABLED) fprintf(stderr, "Found %s == %s in library (hash==%x).\n", word, hashTableEntry->word, hash);
+            if (DEBUG_ENABLED) fprintf(stderr, "Found %s == %s in library (hash==%x): entry %d in list..\n", word, hashTableEntry->word, hash, skipCount);
             return hashTableEntry;
         }
         else
         {
-            if (DEBUG_ENABLED) fprintf(stderr, "Skipping %s != %s in library (hash==%x).\n", word, hashTableEntry->word, hash);
+            skipCount++;
             hashTableEntry = hashTableEntry->next;
         }
     }
@@ -190,6 +190,8 @@ void TestLibrary()
 
         int fieldsAssigned = 1;
         int wordCount = 0;
+
+        int loopCount = 0;
 
         // while (offset < length)
         while (1)
